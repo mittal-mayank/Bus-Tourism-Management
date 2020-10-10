@@ -1,18 +1,16 @@
-package server;
+package sever;
 
-import customer.Passenger;
-
-public class Bus {
-	final class Seat {
+public abstract class Bus {
+	class Seat {
 		Passenger passenger;
 		int row;
-		char column;
+		int column;
 	}
 
 	boolean ac;
 	boolean food;
+	boolean sleeper;
 	boolean toilet;
 	boolean tv;
-	boolean sleeper;
 	Seat[][] seats;
 }

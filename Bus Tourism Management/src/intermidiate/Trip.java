@@ -8,6 +8,7 @@ public class Trip {
 	private String startTime;
 	private String endDay;
 	private String endTime;
+	// fares
 
 	public Trip(Bus bus, String startDay, String startTime, String endDay, String endTime) {
 		this.bus = bus;
@@ -19,6 +20,12 @@ public class Trip {
 
 	public Bus getBus() {
 		return bus;
+	}
+	
+	public void discount() {
+		// input and calc
+		// discount = 10
+		// fares  = fares*(100-dis)/100;
 	}
 
 	public void display() {

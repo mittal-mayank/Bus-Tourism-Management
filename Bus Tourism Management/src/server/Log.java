@@ -45,11 +45,18 @@ public class Log {
 		System.out.print("Enter your bus tier: ");
 		int tier = Main.scan.nextInt();
 		Trip trip = mapTrips.get(location).get(tier - 1);
+		// trip.discount();
 		Seat seat = trip.getBus().book();
 		Ticket ticket = new Ticket(location, trip, seat);
 		String uniqueID = UUID.randomUUID().toString();
 		mapTicket.put(uniqueID, ticket);
 		System.out.println("Ticket No: " + uniqueID);
+	}
+	
+	void cancelling() {
+		// get ticket no
+		// Ticket t = mapTicket.get(ticketno);
+		
 	}
 
 	private ArrayList<Trip> mumbaiList() {

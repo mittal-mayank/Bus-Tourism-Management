@@ -19,6 +19,10 @@ public class Main {
 			case 1:
 				log.booking();
 				break;
+				
+			case 2:
+				log.cancelling();
+				break;
 
 			case 4:
 				System.out.println("Exited");

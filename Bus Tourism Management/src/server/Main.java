@@ -24,6 +24,10 @@ public class Main {
 				log.cancelling();
 				break;
 
+			case 3:
+				log.reschedule();
+				break;
+				
 			case 4:
 				System.out.println("Exited");
 				break;

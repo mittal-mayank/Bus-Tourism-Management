@@ -71,6 +71,10 @@ public class Log {
 			
 			if(choice == 1) {
 				
+				//Yaha kya likhunga
+				//Soch ke bund mar gayi
+				//Map me se delete krna h na?
+				//i guess
 				
 				
 			}
@@ -90,6 +94,10 @@ public class Log {
 		}
 		
 		// Ticket t = mapTicket.get(ticketno);
+		
+	}
+	
+	void reschedule() {
 		
 	}
 

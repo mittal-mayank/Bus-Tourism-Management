@@ -1,8 +1,6 @@
-package client;
+package entities;
 
 import java.util.HashSet;
-
-import intermidiate.Seat;
 
 public abstract class Bus {
 	boolean ac;
@@ -12,6 +10,7 @@ public abstract class Bus {
 	boolean tv;
 	HashSet<Seat> seats;
 
-	public abstract void seatsVacant();
-	public abstract Seat book();
+	public abstract void displayVacantSeats();
+	public abstract Seat bookSeat();
+	public abstract void cancelSeat(Seat seat);
 }

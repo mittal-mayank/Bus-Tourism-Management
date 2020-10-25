@@ -1,4 +1,4 @@
-package server;
+package runner;
 
 import java.util.Scanner;
 
@@ -15,23 +15,20 @@ public class Main {
 			System.out.println("4. Exit");
 			System.out.print("Enter your choice: ");
 			choice = scan.nextInt();
+			System.out.println();
 			switch (choice) {
 			case 1:
 				log.booking();
 				break;
-				
 			case 2:
 				log.cancelling();
 				break;
-
 			case 3:
-				log.reschedule();
+				log.rescheduling();
 				break;
-				
 			case 4:
 				System.out.println("Exited");
 				break;
-
 			default:
 				System.out.println("Choice doesn't match options, try again");
 				break;

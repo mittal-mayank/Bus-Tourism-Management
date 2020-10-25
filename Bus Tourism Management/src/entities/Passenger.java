@@ -1,6 +1,6 @@
-package intermidiate;
+package entities;
 
-import server.Main;
+import runner.Main;
 
 public class Passenger {
 	private String name;
@@ -9,8 +9,8 @@ public class Passenger {
 	private String phone;
 	private String email;
 
-	public Passenger() {
-		System.out.println("Enter your details...");
+	Passenger() {
+		System.out.println("Enter your details:-");
 		System.out.print("Name: ");
 		name = Main.scan.next();
 		System.out.print("Age: ");
@@ -23,7 +23,7 @@ public class Passenger {
 		email = Main.scan.next();
 	}
 
-	public void display() {
+	void displayPassenger() {
 		System.out.println("Name: " + name);
 		System.out.println("Age: " + age);
 		System.out.println("Gender: " + gender);

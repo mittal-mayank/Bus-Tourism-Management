@@ -1,12 +1,13 @@
-package server;
+package runner;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.UUID;
 
-import client.Tier1;
-import client.Tier2;
-import client.Tier3;
-import intermidiate.Seat;
-import intermidiate.Trip;
+import entities.Seat;
+import entities.Tier1;
+import entities.Tier2;
+import entities.Tier3;
 
 public class Log {
 	private HashMap<String, Ticket> mapTicket;
@@ -21,84 +22,51 @@ public class Log {
 		mapTrips.put("Kolkata", kolkataList());
 	}
 
-	void displayTrips(String location) {
-		ArrayList<Trip> trips = mapTrips.get(location);
-		for (Trip trip : trips) {
-			trip.display();
-		}
-	}
-
-	void displayTable() {
-		displayTrips("Mumbai");
-		displayTrips("Jaipur");
-		displayTrips("Chennai");
-		displayTrips("Chennai");
-	}
-
 	void booking() {
 		System.out.print("Enter destination: ");
 		String location = Main.scan.next();
-		System.out.println("Available choices...");
+		System.out.println("Available choices:-");
 		displayTrips(location);
 		System.out.print("Enter your bus tier: ");
 		int tier = Main.scan.nextInt();
 		Trip trip = mapTrips.get(location).get(tier - 1);
-		// trip.discount();
-		Seat seat = trip.getBus().book();
-		trip.discount();
-		
+		Seat seat = trip.bookTrip();
 		Ticket ticket = new Ticket(location, trip, seat);
 		String uniqueID = UUID.randomUUID().toString();
 		mapTicket.put(uniqueID, ticket);
-		System.out.println("Ticket No: " + uniqueID);
-	}
-	
-	void cancelling() {
-		// get ticket no
+		System.out.println("Ticket Number: " + uniqueID);
+		ticket.displayTicket();
 		System.out.println();
-		System.out.println("Please enter the ticket number :");
-		
-		Scanner sc = new Scanner (System.in);
-		
-		int ticketNumber = sc.nextInt();
-		
-		if (mapTicket.containsKey(ticketNumber)) {
-			
-			System.out.println();
-			System.out.println("Are you sure, You want to cancel the trip? Press 1 to cancel else 0.");
-			
-			int choice  = sc.nextInt();
-			
-			if(choice == 1) {
-				
-				//Yaha kya likhunga
-				//Soch ke bund mar gayi
-				//Map me se delete krna h na?
-				//i guess
-				
-				
-			}
-			else if (choice ==0) {
-				
-				//Redirect to the Booking function.
-				booking();
-			}
-			else {
-				System.out.println("Wrong input.. Please Try again!");
-			}
-			
-			
-		}
-		else {
-			System.out.println("The ticket number does not exist in our Database. Please try again!");
-		}
-		
-		// Ticket t = mapTicket.get(ticketno);
-		
 	}
-	
-	void reschedule() {
-		
+
+	void cancelling() {
+		System.out.print("Please enter the ticket number: ");
+		String ticketNumber = Main.scan.next();
+		if (mapTicket.containsKey(ticketNumber)) {
+			System.out.print("Are you sure, You want to cancel the trip? Press Y or N: ");
+			char choice = Main.scan.next().charAt(0);
+			if (choice == 'Y') {
+				Ticket ticket = mapTicket.get(ticketNumber);
+				ticket.cancelTicket();
+				mapTicket.remove(ticketNumber);
+			} else if (choice == 'N') {
+				System.out.println("Ticket not cancelled!");
+			}
+		} else {
+			System.out.println("The ticket number does not exist in our database!");
+		}
+		System.out.println();
+	}
+
+	void rescheduling() {
+	}
+
+	private void displayTrips(String location) {
+		ArrayList<Trip> trips = mapTrips.get(location);
+		for (Trip trip : trips) {
+			trip.displayTrip();
+			System.out.println();
+		}
 	}
 
 	private ArrayList<Trip> mumbaiList() {
@@ -111,7 +79,7 @@ public class Log {
 
 	private ArrayList<Trip> jaipurList() {
 		ArrayList<Trip> trips = new ArrayList<Trip>();
-		trips.add(new Trip(new Tier1(), "Wednesday", "1200", "Thursday", "1200" , 3500));
+		trips.add(new Trip(new Tier1(), "Wednesday", "1200", "Thursday", "1200", 3500));
 		trips.add(new Trip(new Tier2(), "Sunday", "1200", "Monday", "1200", 2500));
 		trips.add(new Trip(new Tier3(), "Friday", "1800", "Saturday", "1800", 1000));
 		return trips;
@@ -119,8 +87,8 @@ public class Log {
 
 	private ArrayList<Trip> chennaiList() {
 		ArrayList<Trip> trips = new ArrayList<Trip>();
-		trips.add(new Trip(new Tier1(), "Thursday", "1200", "Sunday", "1200" , 7500));
-		trips.add(new Trip(new Tier2(), "Tuesday", "1800", "Friday", "1800" , 5000));
+		trips.add(new Trip(new Tier1(), "Thursday", "1200", "Sunday", "1200", 7500));
+		trips.add(new Trip(new Tier2(), "Tuesday", "1800", "Friday", "1800", 5000));
 		trips.add(new Trip(new Tier3(), "Saturday", "1800", "Tuesday", "1800", 3500));
 		return trips;
 	}
@@ -128,8 +96,8 @@ public class Log {
 	private ArrayList<Trip> kolkataList() {
 		ArrayList<Trip> trips = new ArrayList<Trip>();
 		trips.add(new Trip(new Tier1(), "Friday", "1200", "Sunday", "1200", 5500));
-		trips.add(new Trip(new Tier2(), "Wednesday", "1800", "Friday", "1800" , 4000));
-		trips.add(new Trip(new Tier3(), "Sunday", "1800", "Tuesday", "1800" , 2500));
+		trips.add(new Trip(new Tier2(), "Wednesday", "1800", "Friday", "1800", 4000));
+		trips.add(new Trip(new Tier3(), "Sunday", "1800", "Tuesday", "1800", 2500));
 		return trips;
 	}
 }

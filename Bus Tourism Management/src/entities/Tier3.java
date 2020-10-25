@@ -1,10 +1,8 @@
-package client;
+package entities;
 
 import java.util.HashSet;
 
-import intermidiate.Passenger;
-import intermidiate.Seat;
-import server.Main;
+import runner.Main;
 
 public class Tier3 extends Bus {
 	private static final int rows = 10;
@@ -20,28 +18,36 @@ public class Tier3 extends Bus {
 	}
 
 	@Override
-	public void seatsVacant() {
-		System.out.println("Seats range, " + "Rows: " + rows + " Columns: " + columns);
-		System.out.println("Non-vacant seats...");
+	public void displayVacantSeats() {
+		System.out.println("Seats range, " + "Rows: " + rows + ", Columns: " + columns);
+		System.out.println("Non-vacant seats:-");
 		if (seats.isEmpty()) {
-			System.out.println("All vacant");
+			System.out.println("All vacant!");
 		} else {
 			for (Seat seat : seats) {
-				System.out.println("Row: " + seat.getRow() + " Column: " + seat.getColumn());
+				seat.displayCoordinates();
 			}
 		}
 	}
 
 	@Override
-	public Seat book() {
-		System.out.println("Enter seat co-ordinates...");
+	public Seat bookSeat() {
+		System.out.println("Enter seat co-ordinates:-");
 		System.out.print("Row: ");
 		int row = Main.scan.nextInt();
 		System.out.print("Column: ");
 		int column = Main.scan.nextInt();
 		Seat seat = new Seat(new Passenger(), row, column);
 		seats.add(seat);
-		System.out.println("Seat booked");
+		System.out.println("Seat booked!");
+		System.out.println();
 		return seat;
+	}
+
+	@Override
+	public void cancelSeat(Seat seat) {
+		seats.remove(seat);
+		System.out.println("Seat cancelled!");
+		System.out.println();
 	}
 }

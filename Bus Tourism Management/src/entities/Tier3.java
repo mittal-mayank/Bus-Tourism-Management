@@ -19,7 +19,7 @@ public class Tier3 extends Bus {
 
 	@Override
 	public void displayVacantSeats() {
-		System.out.println("Seats range, " + "Rows: " + rows + ", Columns: " + columns);
+		System.out.println("Seats range, Rows: " + rows + ", Columns: " + columns);
 		System.out.println("Non-vacant seats:-");
 		if (seats.isEmpty()) {
 			System.out.println("All vacant!");

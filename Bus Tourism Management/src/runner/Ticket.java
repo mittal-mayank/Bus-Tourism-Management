@@ -22,7 +22,7 @@ public class Ticket {
 		System.out.println("Destination: " + destination);
 		trip.displayTrip();
 		System.out.println("Discounted fare: " + fare);
-		seat.display();
+		seat.displaySeat();
 		System.out.println();
 	}
 

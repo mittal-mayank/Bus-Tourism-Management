@@ -15,7 +15,7 @@ public class Seat {
 		System.out.println("Row: " + row + ", Column: " + column);
 	}
 
-	public void display() {
+	public void displaySeat() {
 		passenger.displayPassenger();
 		System.out.println("Row: " + row + ", Column: " + column);
 	}

@@ -38,12 +38,12 @@ public:
 class Seat
 {
 private:
-    Passenger passenger;
+    Passenger *passenger;
     int row;
     int column;
 
 public:
-    Seat(Passenger passenger, int row, int column)
+    Seat(Passenger *passenger, int row, int column)
     {
         this->passenger = passenger;
         this->row = row;
@@ -55,7 +55,7 @@ public:
     }
     void displaySeat()
     {
-        passenger.displayPassenger();
+        passenger->displayPassenger();
         cout << "Row: " << row << ", Column: " << column << "\n";
     }
     bool operator==(const Seat &s) const
@@ -85,8 +85,8 @@ public:
     unordered_set<Seat, SeatHash> seats;
 
     virtual void displayVacantSeats() = 0;
-    virtual Seat bookSeat() = 0;
-    virtual void cancelSeat(Seat seat) = 0;
+    virtual Seat *bookSeat() = 0;
+    virtual void cancelSeat(Seat *seat) = 0;
 };
 
 class Tier1 : public Bus
@@ -121,7 +121,7 @@ public:
             }
         }
     }
-    Seat bookSeat()
+    Seat *bookSeat()
     {
         cout << "Enter seat co-ordinates:-\n";
         int row;
@@ -130,14 +130,15 @@ public:
         int column;
         cout << "Column: ";
         cin >> column;
-        Seat seat(Passenger(), row, column);
+        Seat *seat = new Seat(new Passenger(), row, column);
+        seats.emplace(*seat);
         cout << "Seat booked!\n";
         cout << "\n";
         return seat;
     }
-    void cancelSeat(Seat seat)
+    void cancelSeat(Seat *seat)
     {
-        seats.erase(seat);
+        seats.erase(*seat);
         cout << "Seat cancelled!\n";
         cout << "\n";
     }
@@ -175,7 +176,7 @@ public:
             }
         }
     }
-    Seat bookSeat()
+    Seat *bookSeat()
     {
         cout << "Enter seat co-ordinates:-\n";
         int row;
@@ -184,14 +185,15 @@ public:
         int column;
         cout << "Column: ";
         cin >> column;
-        Seat seat(Passenger(), row, column);
+        Seat *seat = new Seat(new Passenger(), row, column);
+        seats.emplace(*seat);
         cout << "Seat booked!\n";
         cout << "\n";
         return seat;
     }
-    void cancelSeat(Seat seat)
+    void cancelSeat(Seat *seat)
     {
-        seats.erase(seat);
+        seats.erase(*seat);
         cout << "Seat cancelled!\n";
         cout << "\n";
     }
@@ -229,7 +231,7 @@ public:
             }
         }
     }
-    Seat bookSeat()
+    Seat *bookSeat()
     {
         cout << "Enter seat co-ordinates:-\n";
         int row;
@@ -238,14 +240,15 @@ public:
         int column;
         cout << "Column: ";
         cin >> column;
-        Seat seat(Passenger(), row, column);
+        Seat *seat = new Seat(new Passenger(), row, column);
+        seats.emplace(*seat);
         cout << "Seat booked!\n";
         cout << "\n";
         return seat;
     }
-    void cancelSeat(Seat seat)
+    void cancelSeat(Seat *seat)
     {
-        seats.erase(seat);
+        seats.erase(*seat);
         cout << "Seat cancelled!\n";
         cout << "\n";
     }
@@ -262,7 +265,7 @@ private:
     int fare;
 
 public:
-    Trip(Bus *bus, string startDay, string startTime, string endDay, string endTime, int fares)
+    Trip(Bus *bus, string startDay, string startTime, string endDay, string endTime, int fare)
     {
         this->bus = bus;
         this->startDay = startDay;
@@ -271,12 +274,12 @@ public:
         this->endTime = endTime;
         this->fare = fare;
     }
-    Seat bookTrip()
+    Seat *bookTrip()
     {
         cout << "\n";
         return bus->bookSeat();
     }
-    void cancelTrip(Seat seat)
+    void cancelTrip(Seat *seat)
     {
         cout << "\n";
         bus->cancelSeat(seat);
@@ -341,11 +344,11 @@ private:
     int fare;
 
 public:
-    Ticket(string destination, Trip trip, Seat seat)
+    Ticket(string destination, Trip *trip, Seat *seat)
     {
         this->destination = destination;
-        this->trip = &trip;
-        this->seat = &seat;
+        this->trip = trip;
+        this->seat = seat;
         setFare();
     }
     void displayTicket()
@@ -359,7 +362,7 @@ public:
     }
     void cancelTicket()
     {
-        trip->cancelTrip(*seat);
+        trip->cancelTrip(seat);
     }
     void setFare()
     {
@@ -377,45 +380,33 @@ private:
     vector<Trip> mumbaiList()
     {
         vector<Trip> trips;
-        Tier1 t1;
-        Tier2 t2;
-        Tier3 t3;
-        trips.push_back(Trip(&t1, "Tuesday", "1200", "Thursday", "1200", 5000));
-        trips.push_back(Trip(&t2, "Saturday", "1200", "Monday", "1200", 3000));
-        trips.push_back(Trip(&t3, "Thursday", "1800", "Saturday", "1800", 1700));
+        trips.push_back(*(new Trip(new Tier1(), "Tuesday", "1200", "Thursday", "1200", 5000)));
+        trips.push_back(*(new Trip(new Tier2(), "Saturday", "1200", "Monday", "1200", 3000)));
+        trips.push_back(*(new Trip(new Tier3(), "Thursday", "1800", "Saturday", "1800", 1700)));
         return trips;
     }
     vector<Trip> jaipurList()
     {
         vector<Trip> trips;
-        Tier1 t1;
-        Tier2 t2;
-        Tier3 t3;
-        trips.push_back(Trip(&t1, "Wednesday", "1200", "Thursday", "1200", 3500));
-        trips.push_back(Trip(&t2, "Sunday", "1200", "Monday", "1200", 2500));
-        trips.push_back(Trip(&t3, "Friday", "1800", "Saturday", "1800", 1000));
+        trips.push_back(*(new Trip(new Tier1(), "Wednesday", "1200", "Thursday", "1200", 3500)));
+        trips.push_back(*(new Trip(new Tier2(), "Sunday", "1200", "Monday", "1200", 2500)));
+        trips.push_back(*(new Trip(new Tier3(), "Friday", "1800", "Saturday", "1800", 1000)));
         return trips;
     }
     vector<Trip> chennaiList()
     {
         vector<Trip> trips;
-        Tier1 t1;
-        Tier2 t2;
-        Tier3 t3;
-        trips.push_back(Trip(&t1, "Thursday", "1200", "Sunday", "1200", 7500));
-        trips.push_back(Trip(&t2, "Tuesday", "1800", "Friday", "1800", 5000));
-        trips.push_back(Trip(&t3, "Saturday", "1800", "Tuesday", "1800", 3500));
+        trips.push_back(*(new Trip(new Tier1(), "Thursday", "1200", "Sunday", "1200", 7500)));
+        trips.push_back(*(new Trip(new Tier2(), "Tuesday", "1800", "Friday", "1800", 5000)));
+        trips.push_back(*(new Trip(new Tier3(), "Saturday", "1800", "Tuesday", "1800", 3500)));
         return trips;
     }
     vector<Trip> kolkataList()
     {
         vector<Trip> trips;
-        Tier1 t1;
-        Tier2 t2;
-        Tier3 t3;
-        trips.push_back(Trip(&t1, "Friday", "1200", "Sunday", "1200", 5500));
-        trips.push_back(Trip(&t2, "Wednesday", "1800", "Friday", "1800", 4000));
-        trips.push_back(Trip(&t3, "Sunday", "1800", "Tuesday", "1800", 2500));
+        trips.push_back(*(new Trip(new Tier1(), "Friday", "1200", "Sunday", "1200", 5500)));
+        trips.push_back(*(new Trip(new Tier2(), "Wednesday", "1800", "Friday", "1800", 4000)));
+        trips.push_back(*(new Trip(new Tier3(), "Sunday", "1800", "Tuesday", "1800", 2500)));
         return trips;
     }
 
@@ -435,11 +426,11 @@ public:
         cout << "Available choices:-\n";
         displayTrips(location);
         int tier;
-        cout << "Enter your bus tier\n";
+        cout << "Enter your bus tier: ";
         cin >> tier;
         Trip trip = mapTrips.at(location).at(tier - 1);
-        Seat seat = trip.bookTrip();
-        Ticket ticket(location, trip, seat);
+        Seat *seat = trip.bookTrip();
+        Ticket ticket(location, &trip, seat);
         srand(time(NULL));
         unsigned long ticketNumber = rand();
         mapTicket.emplace(ticketNumber, ticket);
@@ -486,6 +477,17 @@ public:
             cout << "\n";
         }
     }
+    void deleteMemory()
+    {
+        for (auto pairs : mapTrips)
+        {
+            vector<Trip> trips = pairs.second;
+            for (Trip trip : trips)
+            {
+                delete &trip;
+            }
+        }
+    }
 };
 
 int main()
@@ -496,7 +498,6 @@ int main()
     {
         cout << "1. Booking\n";
         cout << "2. Cancelling\n";
-        ;
         cout << "3. Re-scheduling\n";
         cout << "4. Exit\n";
         cout << "Enter your choice: ";
@@ -514,6 +515,7 @@ int main()
             log.rescheduling();
             break;
         case 4:
+            log.deleteMemory();
             cout << "Exited\n";
             break;
         default:

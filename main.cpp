@@ -13,7 +13,7 @@ private:
 public:
     Passenger()
     {
-        cout << "Enter your details:-\n";
+        cout << "Enter your details:-" << endl;
         cout << "Name: ";
         cin >> name;
         cout << "Age: ";
@@ -27,11 +27,11 @@ public:
     }
     void displayPassenger()
     {
-        cout << "Name: " << name << "\n";
-        cout << "Age: " << age << "\n";
-        cout << "Gender: " << gender << "\n";
-        cout << "Phone No: " << phone << "\n";
-        cout << "E-mail: " << email << "\n";
+        cout << "Name: " << name << endl;
+        cout << "Age: " << age << endl;
+        cout << "Gender: " << gender << endl;
+        cout << "Phone No: " << phone << endl;
+        cout << "E-mail: " << email << endl;
     }
 };
 
@@ -43,24 +43,24 @@ private:
     int column;
 
 public:
-    Seat(Passenger *passenger, int row, int column)
+    Seat(Passenger passenger, int row, int column)
     {
-        this->passenger = passenger;
+        this->passenger = &passenger;
         this->row = row;
         this->column = column;
     }
     void displayCoordinates()
     {
-        cout << "Row: " << row << ", Column: " << column << "\n";
+        cout << "Row: " << row << ", Column: " << column << endl;
     }
     void displaySeat()
     {
         passenger->displayPassenger();
-        cout << "Row: " << row << ", Column: " << column << "\n";
+        cout << "Row: " << row << ", Column: " << column << endl;
     }
     bool operator==(const Seat &s) const
     {
-        return (this == &s);
+        return (this->row == s.row) && (this->column == s.column);
     }
 };
 
@@ -85,8 +85,8 @@ public:
     unordered_set<Seat, SeatHash> seats;
 
     virtual void displayVacantSeats() = 0;
-    virtual Seat *bookSeat() = 0;
-    virtual void cancelSeat(Seat *seat) = 0;
+    virtual Seat bookSeat() = 0;
+    virtual void cancelSeat(Seat seat) = 0;
 };
 
 class Tier1 : public Bus
@@ -107,11 +107,11 @@ public:
     }
     void displayVacantSeats()
     {
-        cout << "Seats range, Rows: " << rows << ", Columns: " << columns << "\n";
-        cout << "Non-vacant seats:-\n";
+        cout << "Seats range, Rows: " << rows << ", Columns: " << columns << endl;
+        cout << "Non-vacant seats:-" << endl;
         if (seats.empty())
         {
-            cout << "All vacant\n";
+            cout << "All vacant" << endl;
         }
         else
         {
@@ -121,26 +121,26 @@ public:
             }
         }
     }
-    Seat *bookSeat()
+    Seat bookSeat()
     {
-        cout << "Enter seat co-ordinates:-\n";
+        cout << "Enter seat co-ordinates:-" << endl;
         int row;
         cout << "Row: ";
         cin >> row;
         int column;
         cout << "Column: ";
         cin >> column;
-        Seat *seat = new Seat(new Passenger(), row, column);
-        seats.emplace(*seat);
-        cout << "Seat booked!\n";
-        cout << "\n";
+        Seat seat = *new Seat(*new Passenger(), row, column);
+        seats.emplace(seat);
+        cout << "Seat booked!" << endl;
+        cout << endl;
         return seat;
     }
-    void cancelSeat(Seat *seat)
+    void cancelSeat(Seat seat)
     {
-        seats.erase(*seat);
-        cout << "Seat cancelled!\n";
-        cout << "\n";
+        seats.erase(seat);
+        cout << "Seat cancelled!" << endl;
+        cout << endl;
     }
 };
 
@@ -162,11 +162,11 @@ public:
     }
     void displayVacantSeats()
     {
-        cout << "Seats range, Rows: " << rows << ", Columns: " << columns << "\n";
-        cout << "Non-vacant seats:-\n";
+        cout << "Seats range, Rows: " << rows << ", Columns: " << columns << endl;
+        cout << "Non-vacant seats:-" << endl;
         if (seats.empty())
         {
-            cout << "All vacant\n";
+            cout << "All vacant" << endl;
         }
         else
         {
@@ -176,26 +176,26 @@ public:
             }
         }
     }
-    Seat *bookSeat()
+    Seat bookSeat()
     {
-        cout << "Enter seat co-ordinates:-\n";
+        cout << "Enter seat co-ordinates:-" << endl;
         int row;
         cout << "Row: ";
         cin >> row;
         int column;
         cout << "Column: ";
         cin >> column;
-        Seat *seat = new Seat(new Passenger(), row, column);
-        seats.emplace(*seat);
-        cout << "Seat booked!\n";
-        cout << "\n";
+        Seat seat = *new Seat(*new Passenger(), row, column);
+        seats.emplace(seat);
+        cout << "Seat booked!" << endl;
+        cout << endl;
         return seat;
     }
-    void cancelSeat(Seat *seat)
+    void cancelSeat(Seat seat)
     {
-        seats.erase(*seat);
-        cout << "Seat cancelled!\n";
-        cout << "\n";
+        seats.erase(seat);
+        cout << "Seat cancelled!" << endl;
+        cout << endl;
     }
 };
 
@@ -217,11 +217,11 @@ public:
     }
     void displayVacantSeats()
     {
-        cout << "Seats range, Rows: " << rows << ", Columns: " << columns << "\n";
-        cout << "Non-vacant seats:-\n";
+        cout << "Seats range, Rows: " << rows << ", Columns: " << columns << endl;
+        cout << "Non-vacant seats:-" << endl;
         if (seats.empty())
         {
-            cout << "All vacant\n";
+            cout << "All vacant" << endl;
         }
         else
         {
@@ -231,26 +231,26 @@ public:
             }
         }
     }
-    Seat *bookSeat()
+    Seat bookSeat()
     {
-        cout << "Enter seat co-ordinates:-\n";
+        cout << "Enter seat co-ordinates:-" << endl;
         int row;
         cout << "Row: ";
         cin >> row;
         int column;
         cout << "Column: ";
         cin >> column;
-        Seat *seat = new Seat(new Passenger(), row, column);
-        seats.emplace(*seat);
-        cout << "Seat booked!\n";
-        cout << "\n";
+        Seat seat = *new Seat(*new Passenger(), row, column);
+        seats.emplace(seat);
+        cout << "Seat booked!" << endl;
+        cout << endl;
         return seat;
     }
-    void cancelSeat(Seat *seat)
+    void cancelSeat(Seat seat)
     {
-        seats.erase(*seat);
-        cout << "Seat cancelled!\n";
-        cout << "\n";
+        seats.erase(seat);
+        cout << "Seat cancelled!" << endl;
+        cout << endl;
     }
 };
 
@@ -274,30 +274,30 @@ public:
         this->endTime = endTime;
         this->fare = fare;
     }
-    Seat *bookTrip()
+    Seat bookTrip()
     {
-        cout << "\n";
+        cout << endl;
         return bus->bookSeat();
     }
-    void cancelTrip(Seat *seat)
+    void cancelTrip(Seat seat)
     {
-        cout << "\n";
+        cout << endl;
         bus->cancelSeat(seat);
     }
     void displayTrip()
     {
-        cout << "Bus tier: " << bus->type << "\n";
-        cout << "Start day: " << startDay << "\n";
-        cout << "Start time: " << startTime << "\n";
-        cout << "End day: " << endDay << "\n";
-        cout << "End time: " << endTime << "\n";
+        cout << "Bus tier: " << bus->type << endl;
+        cout << "Start day: " << startDay << endl;
+        cout << "Start time: " << startTime << endl;
+        cout << "End day: " << endDay << endl;
+        cout << "End time: " << endTime << endl;
         bus->displayVacantSeats();
-        cout << "Orignal fare: " << fare << "\n";
+        cout << "Orignal fare: " << fare << endl;
     }
     int discount()
     {
-        cout << "You have been selected for a discount round wherein you will have to perform a simple task and on the basis of that you will be awarded a discount on fare\n";
-        cout << "Enter two numbers from 1 to 10:-\n";
+        cout << "You have been selected for a discount round wherein you will have to perform a simple task and on the basis of that you will be awarded a discount on fare" << endl;
+        cout << "Enter two numbers from 1 to 10:-" << endl;
         int a;
         cout << "Enter first number: ";
         cin >> a;
@@ -309,27 +309,27 @@ public:
         int c = a | b;
         if (c > 13)
         {
-            cout << "Congratulations! You have got a flat 10% reduction in fares\n";
+            cout << "Congratulations! You have got a flat 10% reduction in fares" << endl;
             discount = 10;
             prevFare = fare * (100 - discount) / 100;
         }
         else if (c<13 | c> 9)
         {
-            cout << "Congratulations! You have got a flat 7% reduction in fares\n";
+            cout << "Congratulations! You have got a flat 7% reduction in fares" << endl;
             discount = 7;
             prevFare = fare * (100 - discount) / 100;
         }
         else if (c<9 | c> 5)
         {
-            cout << "Congratulations! You have got a flat 5% reduction in fares\n";
+            cout << "Congratulations! You have got a flat 5% reduction in fares" << endl;
             discount = 5;
             prevFare = fare * (100 - discount) / 100;
         }
         else if (c<5 & c> 0)
         {
-            cout << "You have got no reduction in fares! Better luck next time!\n";
+            cout << "You have got no reduction in fares! Better luck next time!" << endl;
         }
-        cout << "\n";
+        cout << endl;
         return prevFare;
     }
 };
@@ -344,25 +344,25 @@ private:
     int fare;
 
 public:
-    Ticket(string destination, Trip *trip, Seat *seat)
+    Ticket(string destination, Trip trip, Seat seat)
     {
         this->destination = destination;
-        this->trip = trip;
-        this->seat = seat;
+        this->trip = &trip;
+        this->seat = &seat;
         setFare();
     }
     void displayTicket()
     {
-        cout << "Source: " << source << "\n";
-        cout << "Destination: " << destination << "\n";
+        cout << "Source: " << source << endl;
+        cout << "Destination: " << destination << endl;
         trip->displayTrip();
-        cout << "Discounted fare: " << fare << "\n";
+        cout << "Discounted fare: " << fare << endl;
         seat->displaySeat();
-        cout << "\n";
+        cout << endl;
     }
     void cancelTicket()
     {
-        trip->cancelTrip(seat);
+        trip->cancelTrip(*seat);
     }
     void setFare()
     {
@@ -423,23 +423,24 @@ public:
         string location;
         cout << "Enter destination: ";
         cin >> location;
-        cout << "Available choices:-\n";
+        cout << "Available choices:-" << endl;
         displayTrips(location);
         int tier;
         cout << "Enter your bus tier: ";
         cin >> tier;
         Trip trip = mapTrips.at(location).at(tier - 1);
-        Seat *seat = trip.bookTrip();
-        Ticket ticket(location, &trip, seat);
+        Seat seat = trip.bookTrip();
+        Ticket ticket(location, trip, seat);
         srand(time(NULL));
         unsigned long ticketNumber = rand();
         mapTicket.emplace(ticketNumber, ticket);
-        cout << "Ticket number: " << ticketNumber << "\n";
+        cout << "Ticket number: " << ticketNumber << endl;
         ticket.displayTicket();
-        cout << "\n";
+        cout << endl;
     }
     void cancelling()
     {
+        displayTickets();
         unsigned long ticketNumber;
         cout << "Please enter the ticket number: ";
         cin >> ticketNumber;
@@ -456,14 +457,14 @@ public:
             }
             else if (choice == 'N' || choice == 'n')
             {
-                cout << "Ticket not cancelled!\n";
+                cout << "Ticket not cancelled!" << endl;
             }
         }
         else
         {
-            cout << "Ticket number does not exist in our database!\n";
+            cout << "Ticket number does not exist in our database!" << endl;
         }
-        cout << "\n";
+        cout << endl;
     }
     void rescheduling()
     {
@@ -474,12 +475,20 @@ public:
         for (Trip trip : trips)
         {
             trip.displayTrip();
-            cout << "\n";
+            cout << endl;
+        }
+    }
+    void displayTickets()
+    {
+        cout << "Tester" << endl;
+        for (auto pairs : mapTicket)
+        {
+            pairs.second.displayTicket();
         }
     }
     void deleteMemory()
     {
-        for (auto pairs : mapTrips)
+        for (auto& pairs : mapTrips)
         {
             vector<Trip> trips = pairs.second;
             for (Trip trip : trips)
@@ -496,13 +505,13 @@ int main()
     int choice;
     do
     {
-        cout << "1. Booking\n";
-        cout << "2. Cancelling\n";
-        cout << "3. Re-scheduling\n";
-        cout << "4. Exit\n";
+        cout << "1. Booking" << endl;
+        cout << "2. Cancelling" << endl;
+        cout << "3. Re-scheduling" << endl;
+        cout << "4. Exit" << endl;
         cout << "Enter your choice: ";
         cin >> choice;
-        cout << "\n";
+        cout << endl;
         switch (choice)
         {
         case 1:
@@ -515,11 +524,11 @@ int main()
             log.rescheduling();
             break;
         case 4:
-            log.deleteMemory();
-            cout << "Exited\n";
+            // log.deleteMemory();
+            cout << "Exited" << endl;
             break;
         default:
-            cout << "Choice doesn't match options, try again\n";
+            cout << "Choice doesn't match options, try again" << endl;
             break;
         }
     } while (choice != 4);

@@ -2,7 +2,9 @@ package runner;
 
 import entities.Seat;
 
-public class Ticket {
+public class Ticket implements java.io.Serializable {
+	private static final long serialVersionUID = 1L;
+
 	private static final String source = "Delhi";
 
 	private String destination;
@@ -30,7 +32,7 @@ public class Ticket {
 		trip.cancelTrip(seat);
 	}
 
-	void setFare() {
+	private void setFare() {
 		fare = trip.discount();
 	}
 }

@@ -3,7 +3,8 @@ package runner;
 import entities.Bus;
 import entities.Seat;
 
-public class Trip {
+public class Trip implements java.io.Serializable {
+	private static final long serialVersionUID = 1L;
 	private Bus bus;
 	private String startDay;
 	private String startTime;
@@ -11,13 +12,13 @@ public class Trip {
 	private String endTime;
 	private int fare;
 
-	Trip(Bus bus, String startDay, String startTime, String endDay, String endTime, int fares) {
+	Trip(Bus bus, String startDay, String startTime, String endDay, String endTime, int fare) {
 		this.bus = bus;
 		this.startDay = startDay;
 		this.startTime = startTime;
 		this.endDay = endDay;
 		this.endTime = endTime;
-		this.fare = fares;
+		this.fare = fare;
 	}
 
 	Seat bookTrip() {
@@ -69,5 +70,22 @@ public class Trip {
 		}
 		System.out.println();
 		return prevFare;
+	}
+
+	void editTrip() {
+		System.out.print("Enter start day: ");
+		startDay = Main.scan.next();
+		System.out.print("Enter start time: ");
+		startTime = Main.scan.next();
+		System.out.print("Enter end day: ");
+		endDay = Main.scan.next();
+		System.out.print("Enter end time: ");
+		endTime = Main.scan.next();
+		System.out.print("Enter fare: ");
+		fare = Main.scan.nextInt();
+	}
+
+	void clearTrip() {
+		bus.clearBus();
 	}
 }

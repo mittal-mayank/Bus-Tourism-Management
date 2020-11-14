@@ -4,7 +4,8 @@ import java.util.HashSet;
 
 import runner.Main;
 
-public class Tier1 extends Bus {
+public class Tier1 extends Bus implements java.io.Serializable {
+	private static final long serialVersionUID = 1L;
 	private static final int rows = 5;
 	private static final int columns = 2;
 
@@ -14,6 +15,36 @@ public class Tier1 extends Bus {
 		sleeper = true;
 		toilet = true;
 		tv = true;
+
+		seats = new HashSet<Seat>();
+	}
+
+	public static void printInfo() {
+		System.out.println("Number of rows: " + rows);
+		System.out.println("Number of columns: " + columns);
+		System.out.println("AC: " + ac);
+		System.out.println("Food: " + food);
+		System.out.println("Sleeper: " + sleeper);
+		System.out.println("Toilet: " + toilet);
+		System.out.println("TV: " + tv);
+	}
+
+	public static void changeBus() {
+		System.out.println("Enter new details:-");
+		System.out.print("AC: ");
+		ac = Main.scan.nextBoolean();
+		System.out.print("Food: ");
+		food = Main.scan.nextBoolean();
+		System.out.print("Sleeper: ");
+		sleeper = Main.scan.nextBoolean();
+		System.out.print("Toilet: ");
+		toilet = Main.scan.nextBoolean();
+		System.out.print("TV: ");
+		tv = Main.scan.nextBoolean();
+	}
+
+	@Override
+	public void clearBus() {
 		seats = new HashSet<Seat>();
 	}
 

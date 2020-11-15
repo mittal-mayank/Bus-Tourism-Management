@@ -21,15 +21,16 @@ public:
     {
         cout << "Enter your details:-" << endl;
         cout << "Name: ";
-        cin >> name;
+        getline(cin, name);
         cout << "Age: ";
         cin >> age;
+        cin.ignore();
         cout << "Gender: ";
-        cin >> gender;
+        getline(cin, gender);
         cout << "Phone No: ";
-        cin >> phone;
+        getline(cin, phone);
         cout << "E-mail: ";
-        cin >> email;
+        getline(cin, email);
     }
 
     void displayPassenger()
@@ -142,14 +143,19 @@ public:
         cout << "Enter new details:-" << endl;
         cout << "AC: ";
         cin >> ac;
+        cin.ignore();
         cout << "Food: ";
         cin >> food;
+        cin.ignore();
         cout << "Sleeper: ";
         cin >> sleeper;
+        cin.ignore();
         cout << "Toilet: ";
         cin >> toilet;
+        cin.ignore();
         cout << "TV: ";
         cin >> tv;
+        cin.ignore();
         cout << "Bus updated!" << endl;
     }
 
@@ -182,9 +188,11 @@ public:
         cout << "Row: ";
         int row;
         cin >> row;
+        cin.ignore();
         cout << "Column: ";
         int column;
         cin >> column;
+        cin.ignore();
         Passenger passenger;
         passenger.acceptDetails();
         Seat seat(passenger, row, column);
@@ -245,14 +253,19 @@ public:
         cout << "Enter new details:-" << endl;
         cout << "AC: ";
         cin >> ac;
+        cin.ignore();
         cout << "Food: ";
         cin >> food;
+        cin.ignore();
         cout << "Sleeper: ";
         cin >> sleeper;
+        cin.ignore();
         cout << "Toilet: ";
         cin >> toilet;
+        cin.ignore();
         cout << "TV: ";
         cin >> tv;
+        cin.ignore();
         cout << "Bus updated!" << endl;
     }
 
@@ -285,9 +298,11 @@ public:
         cout << "Row: ";
         int row;
         cin >> row;
+        cin.ignore();
         cout << "Column: ";
         int column;
         cin >> column;
+        cin.ignore();
         Passenger passenger;
         passenger.acceptDetails();
         Seat seat(passenger, row, column);
@@ -348,14 +363,19 @@ public:
         cout << "Enter new details:-" << endl;
         cout << "AC: ";
         cin >> ac;
+        cin.ignore();
         cout << "Food: ";
         cin >> food;
+        cin.ignore();
         cout << "Sleeper: ";
         cin >> sleeper;
+        cin.ignore();
         cout << "Toilet: ";
         cin >> toilet;
+        cin.ignore();
         cout << "TV: ";
         cin >> tv;
+        cin.ignore();
         cout << "Bus updated!" << endl;
     }
 
@@ -388,9 +408,11 @@ public:
         cout << "Row: ";
         int row;
         cin >> row;
+        cin.ignore();
         cout << "Column: ";
         int column;
         cin >> column;
+        cin.ignore();
         Passenger passenger;
         passenger.acceptDetails();
         Seat seat(passenger, row, column);
@@ -465,9 +487,11 @@ public:
         cout << "First number: ";
         int a;
         cin >> a;
+        cin.ignore();
         cout << "Second number: ";
         int b;
         cin >> b;
+        cin.ignore();
         int discount;
         int prevFare = fare;
         int c = a | b;
@@ -499,15 +523,16 @@ public:
     void editTrip()
     {
         cout << "Enter start day: ";
-        cin >> startDay;
+        getline(cin, startDay);
         cout << "Enter start time: ";
-        cin >> startTime;
+        getline(cin, startTime);
         cout << "Enter end day: ";
-        cin >> endDay;
+        getline(cin, endDay);
         cout << "Enter end time: ";
-        cin >> endTime;
+        getline(cin, endTime);
         cout << "Enter fare: ";
         cin >> fare;
+        cin.ignore();
         cout << "Trip edited!" << endl;
     }
 
@@ -533,10 +558,6 @@ private:
     }
 
 public:
-    Ticket()
-    {
-    }
-
     Ticket(string destination, Trip trip, Seat seat)
     {
         this->destination = destination;
@@ -562,7 +583,7 @@ public:
 
 string const Ticket::source = "Delhi";
 
-class Storage
+class Log
 {
 private:
     unordered_map<unsigned long, Ticket> mapTicket;
@@ -612,19 +633,20 @@ private:
             cout << "Enter details for tier: " << i << endl;
             cout << "Enter start day: ";
             string startDay;
-            cin >> startDay;
+            getline(cin, startDay);
             cout << "Enter start time: ";
             string startTime;
-            cin >> startTime;
+            getline(cin, startTime);
             cout << "Enter end day: ";
             string endDay;
-            cin >> endDay;
+            getline(cin, endDay);
             cout << "Enter end time: ";
             string endTime;
-            cin >> endTime;
+            getline(cin, endTime);
             cout << "Enter fare: ";
             int fare;
             cin >> fare;
+            cin >> ws;
             trips.push_back(Trip(getTierBus(i), startDay, startTime, endDay, endTime, fare));
             cout << "Trip added!" << endl;
             cout << endl;
@@ -658,7 +680,7 @@ private:
     }
 
 public:
-    Storage()
+    Log()
     {
         mapTrips.emplace("Mumbai", mumbaiList());
         mapTrips.emplace("Jaipur", jaipurList());
@@ -670,13 +692,14 @@ public:
     {
         cout << "Enter destination: ";
         string location;
-        cin >> location;
+        getline(cin, location);
         cout << "Available choices:-" << endl;
         displayTrips(location);
         cout << endl;
         cout << "Enter your bus tier: ";
         int tier;
         cin >> tier;
+        cin.ignore();
         Trip trip = mapTrips.at(location).at(tier - 1);
         Seat seat = trip.bookTrip();
         cout << endl;
@@ -696,11 +719,13 @@ public:
         unsigned long ticketNumber;
         cout << "Please enter the ticket number: ";
         cin >> ticketNumber;
+        cin.ignore();
         if (mapTicket.find(ticketNumber) != mapTicket.end())
         {
             cout << "Are you sure, You want to cancel the trip? Press Y or N: ";
             char choice;
             cin >> choice;
+            cin >> ws;
             if (choice == 'Y')
             {
                 Ticket ticket = mapTicket.at(ticketNumber);
@@ -726,11 +751,13 @@ public:
         unsigned long ticketNumber;
         cout << "Please enter the ticket number: ";
         cin >> ticketNumber;
+        cin.ignore();
         if (mapTicket.find(ticketNumber) != mapTicket.end())
         {
             cout << "Are you sure, You want to re-schedule the trip? Press Y or N: ";
             char choice;
             cin >> choice;
+            cin >> ws;
             if (choice == 'Y')
             {
                 Ticket ticket = mapTicket.at(ticketNumber);
@@ -756,6 +783,7 @@ public:
         cout << "Enter bus tier: ";
         int tier;
         cin >> tier;
+        cin.ignore();
         if (tier == 1)
         {
             Tier1::printInfo();
@@ -779,10 +807,11 @@ public:
     {
         cout << "Enter destination: ";
         string location;
-        cin >> location;
+        getline(cin, location);
         cout << "Enter bus tier: ";
         int tier;
         cin >> tier;
+        cin.ignore();
         vector<Trip> trips = mapTrips.at(location);
         Trip trip = trips.at(tier - 1);
         trip.displayTrip();
@@ -793,7 +822,7 @@ public:
     {
         cout << "Enter destination: ";
         string location;
-        cin >> location;
+        getline(cin, location);
         displayTrips(location);
     }
 
@@ -813,6 +842,7 @@ public:
         unsigned long ticketNumber;
         cout << "Please enter the ticket number: ";
         cin >> ticketNumber;
+        cin.ignore();
         if (mapTicket.find(ticketNumber) != mapTicket.end())
         {
             Ticket ticket = mapTicket.at(ticketNumber);
@@ -830,6 +860,7 @@ public:
         cout << "Enter tier: ";
         int tier;
         cin >> tier;
+        cin.ignore();
         if (tier == 1)
         {
             Tier1::changeBus();
@@ -853,10 +884,11 @@ public:
     {
         cout << "Enter destination: ";
         string location;
-        cin >> location;
+        getline(cin, location);
         cout << "Enter bus tier: ";
         int tier;
         cin >> tier;
+        cin.ignore();
         vector<Trip> trips = mapTrips.at(location);
         Trip trip = trips.at(tier - 1);
         trip.clearTrip();
@@ -867,7 +899,7 @@ public:
     {
         cout << "Enter destination: ";
         string destination;
-        cin >> destination;
+        getline(cin, destination);
         mapTrips.emplace(destination, destinationList());
         cout << "Destination added!" << endl;
         cout << endl;
@@ -877,7 +909,7 @@ public:
     {
         cout << "Enter destination: ";
         string location;
-        cin >> location;
+        getline(cin, location);
         if (mapTrips.find(location) != mapTrips.end())
         {
             mapTrips.erase(location);
@@ -894,10 +926,11 @@ public:
     {
         cout << "Enter destination: ";
         string location;
-        cin >> location;
+        getline(cin, location);
         cout << "Enter bus tier: ";
         int tier;
         cin >> tier;
+        cin.ignore();
         vector<Trip> trips = mapTrips.at(location);
         Trip trip = trips.at(tier - 1);
         trip.editTrip();
@@ -905,7 +938,7 @@ public:
     }
 };
 
-Storage storage;
+Log storage;
 
 static void readLogs()
 {
@@ -952,7 +985,7 @@ static void changePassword()
     file.open("password.dat", ios::trunc);
     cout << "New password: ";
     string password;
-    cin >> password;
+    getline(cin, password);
     file << password;
     file.close();
     cout << "Password changed!" << endl;
@@ -964,7 +997,7 @@ string getPassword()
     ifstream file;
     file.open("password.dat");
     string password;
-    file >> password;
+    getline(file, password);
     file.close();
     return password;
 }
@@ -986,6 +1019,7 @@ void customerMode()
         cout << "9. Log out" << endl;
         cout << "Enter your choice: ";
         cin >> choice;
+        cin.ignore();
         cout << endl;
         switch (choice)
         {
@@ -1028,7 +1062,7 @@ void adminMode()
     defaultPassword();
     cout << "Enter admin password: ";
     string password;
-    cin >> password;
+    getline(cin, password);
     string key = getPassword();
     if (key.compare(password) != 0)
     {
@@ -1057,6 +1091,7 @@ void adminMode()
         cout << "16. Log out" << endl;
         cout << "Enter your choice: ";
         cin >> choice;
+        cin.ignore();
         cout << endl;
         switch (choice)
         {
@@ -1097,7 +1132,7 @@ void adminMode()
             ::storage.addDestination();
             break;
         case 13:
-            ::storage = Storage();
+            ::storage = Log();
             break;
         case 14:
             ::storage.removeDestination();
@@ -1128,6 +1163,7 @@ int main()
         cout << "3. Exit" << endl;
         cout << "Enter your choice: ";
         cin >> choice;
+        cin.ignore();
         cout << endl;
         switch (choice)
         {

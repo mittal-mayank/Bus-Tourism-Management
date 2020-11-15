@@ -1,7 +1,3 @@
-#include <boost/serialization/boost_unordered_map.hpp>
-#include <boost/serialization/string.hpp>
-#include <boost/archive/text_oarchive.hpp>
-#include <boost/archive/text_iarchive.hpp>
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -16,16 +12,6 @@ private:
     string phone;
     string email;
 
-    friend class boost::serialization::access;
-    template <typename Archive>
-    void serialize(Archive &ar, const unsigned int version)
-    {
-        ar &name;
-        ar &age;
-        ar &gender;
-        ar &email;
-    }
-
 public:
     Passenger()
     {
@@ -35,15 +21,15 @@ public:
     {
         cout << "Enter your details:-" << endl;
         cout << "Name: ";
-        getline(cin, name);
+        cin >> name;
         cout << "Age: ";
         cin >> age;
         cout << "Gender: ";
-        getline(cin, gender);
+        cin >> gender;
         cout << "Phone No: ";
-        getline(cin, phone);
+        cin >> phone;
         cout << "E-mail: ";
-        getline(cin, email);
+        cin >> email;
     }
 
     void displayPassenger()
@@ -62,15 +48,6 @@ private:
     Passenger passenger;
     int row;
     int column;
-
-    friend class boost::serialization::access;
-    template <typename Archive>
-    void serialize(Archive &ar, const unsigned int version)
-    {
-        ar &passenger;
-        ar &row;
-        ar &column;
-    }
 
 public:
     int count;
@@ -117,13 +94,7 @@ public:
 class Bus
 {
 public:
-    static int tier;
-    static bool ac;
-    static bool food;
-    static bool sleeper;
-    static bool toilet;
-    static bool tv;
-
+    int tier;
     unordered_set<Seat, SeatHash> seats;
 
     virtual void displayVacantSeats() = 0;
@@ -138,19 +109,11 @@ private:
     static const int rows = 5;
     static const int columns = 2;
 
-    friend class boost::serialization::access;
-    template <typename Archive>
-    void serialize(Archive &ar, const unsigned int version)
-    {
-        ar &rows;
-        ar &columns;
-        ar &tier;
-        ar &ac;
-        ar &food;
-        ar &sleeper;
-        ar &toilet;
-        ar &tv;
-    }
+    static bool ac;
+    static bool food;
+    static bool sleeper;
+    static bool toilet;
+    static bool tv;
 
 public:
     Tier1()
@@ -237,25 +200,23 @@ public:
     }
 };
 
+bool Tier1::ac;
+bool Tier1::food;
+bool Tier1::sleeper;
+bool Tier1::toilet;
+bool Tier1::tv;
+
 class Tier2 : public Bus
 {
 private:
     static const int rows = 10;
     static const int columns = 4;
 
-    friend class boost::serialization::access;
-    template <typename Archive>
-    void serialize(Archive &ar, const unsigned int version)
-    {
-        ar &rows;
-        ar &columns;
-        ar &tier;
-        ar &ac;
-        ar &food;
-        ar &sleeper;
-        ar &toilet;
-        ar &tv;
-    }
+    static bool ac;
+    static bool food;
+    static bool sleeper;
+    static bool toilet;
+    static bool tv;
 
 public:
     Tier2()
@@ -342,25 +303,23 @@ public:
     }
 };
 
+bool Tier2::ac;
+bool Tier2::food;
+bool Tier2::sleeper;
+bool Tier2::toilet;
+bool Tier2::tv;
+
 class Tier3 : public Bus
 {
 private:
     static const int rows = 10;
     static const int columns = 4;
 
-    friend class boost::serialization::access;
-    template <typename Archive>
-    void serialize(Archive &ar, const unsigned int version)
-    {
-        ar &rows;
-        ar &columns;
-        ar &tier;
-        ar &ac;
-        ar &food;
-        ar &sleeper;
-        ar &toilet;
-        ar &tv;
-    }
+    static bool ac;
+    static bool food;
+    static bool sleeper;
+    static bool toilet;
+    static bool tv;
 
 public:
     Tier3()
@@ -447,6 +406,12 @@ public:
     }
 };
 
+bool Tier3::ac;
+bool Tier3::food;
+bool Tier3::sleeper;
+bool Tier3::toilet;
+bool Tier3::tv;
+
 class Trip
 {
 private:
@@ -456,18 +421,6 @@ private:
     string endDay;
     string endTime;
     int fare;
-
-    friend class boost::serialization::access;
-    template <typename Archive>
-    void serialize(Archive &ar, const unsigned int version)
-    {
-        ar &bus;
-        ar &startDay;
-        ar &startTime;
-        ar &endDay;
-        ar &endTime;
-        ar &fare;
-    }
 
 public:
     Trip()
@@ -546,13 +499,13 @@ public:
     void editTrip()
     {
         cout << "Enter start day: ";
-        getline(cin, startDay);
+        cin >> startDay;
         cout << "Enter start time: ";
-        getline(cin, startTime);
+        cin >> startTime;
         cout << "Enter end day: ";
-        getline(cin, endDay);
+        cin >> endDay;
         cout << "Enter end time: ";
-        getline(cin, endTime);
+        cin >> endTime;
         cout << "Enter fare: ";
         cin >> fare;
         cout << "Trip edited!" << endl;
@@ -577,17 +530,6 @@ private:
     void setFare()
     {
         fare = trip.discount();
-    }
-
-    friend class boost::serialization::access;
-    template <typename Archive>
-    void serialize(Archive &ar, const unsigned int version)
-    {
-        ar &source;
-        ar &destination;
-        ar &trip;
-        ar &seat;
-        ar &fare;
     }
 
 public:
@@ -617,6 +559,7 @@ public:
         trip.cancelTrip(seat);
     }
 };
+
 string const Ticket::source = "Delhi";
 
 class Storage
@@ -624,14 +567,6 @@ class Storage
 private:
     unordered_map<unsigned long, Ticket> mapTicket;
     unordered_map<string, vector<Trip>> mapTrips;
-
-    friend class boost::serialization::access;
-    template <typename Archive>
-    void serialize(Archive &ar, const unsigned int version)
-    {
-        ar &mapTicket;
-        ar &mapTrips;
-    }
 
     vector<Trip> mumbaiList()
     {
@@ -677,16 +612,16 @@ private:
             cout << "Enter details for tier: " << i << endl;
             cout << "Enter start day: ";
             string startDay;
-            getline(cin, startDay);
+            cin >> startDay;
             cout << "Enter start time: ";
             string startTime;
-            getline(cin, startTime);
+            cin >> startTime;
             cout << "Enter end day: ";
             string endDay;
-            getline(cin, endDay);
+            cin >> endDay;
             cout << "Enter end time: ";
             string endTime;
-            getline(cin, endTime);
+            cin >> endTime;
             cout << "Enter fare: ";
             int fare;
             cin >> fare;
@@ -735,7 +670,7 @@ public:
     {
         cout << "Enter destination: ";
         string location;
-        getline(cin, location);
+        cin >> location;
         cout << "Available choices:-" << endl;
         displayTrips(location);
         cout << endl;
@@ -844,7 +779,7 @@ public:
     {
         cout << "Enter destination: ";
         string location;
-        getline(cin, location);
+        cin >> location;
         cout << "Enter bus tier: ";
         int tier;
         cin >> tier;
@@ -858,7 +793,7 @@ public:
     {
         cout << "Enter destination: ";
         string location;
-        getline(cin, location);
+        cin >> location;
         displayTrips(location);
     }
 
@@ -918,7 +853,7 @@ public:
     {
         cout << "Enter destination: ";
         string location;
-        getline(cin, location);
+        cin >> location;
         cout << "Enter bus tier: ";
         int tier;
         cin >> tier;
@@ -932,7 +867,7 @@ public:
     {
         cout << "Enter destination: ";
         string destination;
-        getline(cin, destination);
+        cin >> destination;
         mapTrips.emplace(destination, destinationList());
         cout << "Destination added!" << endl;
         cout << endl;
@@ -942,7 +877,7 @@ public:
     {
         cout << "Enter destination: ";
         string location;
-        getline(cin, location);
+        cin >> location;
         if (mapTrips.find(location) != mapTrips.end())
         {
             mapTrips.erase(location);
@@ -959,7 +894,7 @@ public:
     {
         cout << "Enter destination: ";
         string location;
-        getline(cin, location);
+        cin >> location;
         cout << "Enter bus tier: ";
         int tier;
         cin >> tier;
@@ -980,8 +915,10 @@ static void readLogs()
     {
         return;
     }
-    boost::archive::text_iarchive in(file);
-    in >> ::storage;
+    file.seekg(ios::end);
+    long size = file.tellg();
+    file.seekg(ios::beg);
+    file.read((char *)&storage, size);
     file.close();
 }
 
@@ -989,8 +926,8 @@ void writeLogs()
 {
     ofstream file;
     file.open("logs.dat", ios::trunc);
-    boost::archive::text_oarchive out(file);
-    out << ::storage;
+    file.write((char *)&storage, sizeof(storage));
+    cout << sizeof(storage);
     file.close();
 }
 
@@ -1004,9 +941,8 @@ void defaultPassword()
         return;
     }
     file.open("password.dat", ios::out);
-    boost::archive::text_oarchive out(file);
     string password = "abcd";
-    out << password;
+    file << password;
     file.close();
 }
 
@@ -1014,11 +950,10 @@ static void changePassword()
 {
     ofstream file;
     file.open("password.dat", ios::trunc);
-    boost::archive::text_oarchive out(file);
     cout << "New password: ";
     string password;
-    getline(cin, password);
-    out << password;
+    cin >> password;
+    file << password;
     file.close();
     cout << "Password changed!" << endl;
     cout << endl;
@@ -1028,9 +963,8 @@ string getPassword()
 {
     ifstream file;
     file.open("password.dat");
-    boost::archive::text_iarchive in(file);
     string password;
-    in >> password;
+    file >> password;
     file.close();
     return password;
 }
@@ -1094,8 +1028,9 @@ void adminMode()
     defaultPassword();
     cout << "Enter admin password: ";
     string password;
-    getline(cin, password);
-    if (getPassword() != password)
+    cin >> password;
+    string key = getPassword();
+    if (key.compare(password) != 0)
     {
         cout << "Wrong password entered, entry denied!" << endl;
         return;

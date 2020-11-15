@@ -30,11 +30,14 @@ public class Log implements java.io.Serializable {
 		String location = Main.scan.next();
 		System.out.println("Available choices:-");
 		displayTrips(location);
+		System.out.println();
 		System.out.print("Enter your bus tier: ");
 		int tier = Main.scan.nextInt();
 		Trip trip = mapTrips.get(location).get(tier - 1);
 		Seat seat = trip.bookTrip();
+		System.out.println();
 		Ticket ticket = new Ticket(location, trip, seat);
+		System.out.println();
 		String uniqueID = UUID.randomUUID().toString();
 		mapTicket.put(uniqueID, ticket);
 		System.out.println("Ticket Number: " + uniqueID);
@@ -51,6 +54,7 @@ public class Log implements java.io.Serializable {
 			if (choice == 'Y') {
 				Ticket ticket = mapTicket.get(ticketNumber);
 				ticket.cancelTicket();
+				System.out.println();
 				mapTicket.remove(ticketNumber);
 			} else if (choice == 'N') {
 				System.out.println("Ticket not cancelled!");
@@ -71,6 +75,7 @@ public class Log implements java.io.Serializable {
 			if (choice == 'Y') {
 				Ticket ticket = mapTicket.get(ticketNumber);
 				ticket.cancelTicket();
+				System.out.println();
 				mapTicket.remove(ticketNumber);
 				booking();
 			} else if (choice == 'N') {
@@ -79,6 +84,7 @@ public class Log implements java.io.Serializable {
 		} else {
 			System.out.println("The ticket number does not exist in our database!");
 		}
+		System.out.println();
 	}
 
 	void printBus() {
@@ -93,6 +99,7 @@ public class Log implements java.io.Serializable {
 		} else {
 			System.out.println("Tier does not exist!");
 		}
+		System.out.println();
 	}
 
 	void printTrip() {
@@ -103,6 +110,7 @@ public class Log implements java.io.Serializable {
 		ArrayList<Trip> trips = mapTrips.get(location);
 		Trip trip = trips.get(tier - 1);
 		trip.displayTrip();
+		System.out.println();
 	}
 
 	void printTrips() {
@@ -116,7 +124,6 @@ public class Log implements java.io.Serializable {
 		for (String location : locations) {
 			System.out.println("Destination: " + location);
 			displayTrips(location);
-			System.out.println();
 		}
 	}
 
@@ -144,6 +151,7 @@ public class Log implements java.io.Serializable {
 		} else {
 			System.out.println("Tier does not exist!");
 		}
+		System.out.println();
 	}
 
 	void resetTrip() {
@@ -154,12 +162,15 @@ public class Log implements java.io.Serializable {
 		ArrayList<Trip> trips = mapTrips.get(location);
 		Trip trip = trips.get(tier - 1);
 		trip.clearTrip();
+		System.out.println();
 	}
 
 	void addDestination() {
 		System.out.print("Enter destination: ");
 		String destination = Main.scan.next();
 		mapTrips.put(destination, destinationList());
+		System.out.println("Destination added!");
+		System.out.println();
 	}
 
 	void editTrip() {
@@ -170,6 +181,7 @@ public class Log implements java.io.Serializable {
 		ArrayList<Trip> trips = mapTrips.get(location);
 		Trip trip = trips.get(tier - 1);
 		trip.editTrip();
+		System.out.println();
 	}
 
 	private ArrayList<Trip> destinationList() {
@@ -187,6 +199,8 @@ public class Log implements java.io.Serializable {
 			System.out.print("Enter fare: ");
 			int fare = Main.scan.nextInt();
 			trips.add(new Trip(getTierBus(i), startDay, startTime, endDay, endTime, fare));
+			System.out.println("Trip added!");
+			System.out.println();
 		}
 		return trips;
 	}

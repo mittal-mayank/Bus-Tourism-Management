@@ -41,11 +41,13 @@ public class Tier2 extends Bus implements java.io.Serializable {
 		toilet = Main.scan.nextBoolean();
 		System.out.print("TV: ");
 		tv = Main.scan.nextBoolean();
+		System.out.println("Bus updated!");
 	}
 
 	@Override
 	public void clearBus() {
 		seats = new HashSet<Seat>();
+		System.out.println("Bus resetted!");
 	}
 
 	@Override
@@ -71,7 +73,6 @@ public class Tier2 extends Bus implements java.io.Serializable {
 		Seat seat = new Seat(new Passenger(), row, column);
 		seats.add(seat);
 		System.out.println("Seat booked!");
-		System.out.println();
 		return seat;
 	}
 
@@ -79,6 +80,5 @@ public class Tier2 extends Bus implements java.io.Serializable {
 	public void cancelSeat(Seat seat) {
 		seats.remove(seat);
 		System.out.println("Seat cancelled!");
-		System.out.println();
 	}
 }

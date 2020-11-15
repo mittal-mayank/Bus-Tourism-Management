@@ -25,7 +25,6 @@ public class Ticket implements java.io.Serializable {
 		trip.displayTrip();
 		System.out.println("Discounted fare: " + fare);
 		seat.displaySeat();
-		System.out.println();
 	}
 
 	void cancelTicket() {

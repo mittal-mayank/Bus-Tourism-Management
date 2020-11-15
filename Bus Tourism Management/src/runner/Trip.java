@@ -22,12 +22,10 @@ public class Trip implements java.io.Serializable {
 	}
 
 	Seat bookTrip() {
-		System.out.println();
 		return bus.bookSeat();
 	}
 
 	void cancelTrip(Seat seat) {
-		System.out.println();
 		bus.cancelSeat(seat);
 	}
 
@@ -68,7 +66,6 @@ public class Trip implements java.io.Serializable {
 		} else if (c < 5 & c > 0) {
 			System.out.println("You have got no reduction in fares! Better luck next time!");
 		}
-		System.out.println();
 		return prevFare;
 	}
 
@@ -83,6 +80,7 @@ public class Trip implements java.io.Serializable {
 		endTime = Main.scan.next();
 		System.out.print("Enter fare: ");
 		fare = Main.scan.nextInt();
+		System.out.println("Trip edited!");
 	}
 
 	void clearTrip() {

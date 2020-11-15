@@ -17,6 +17,7 @@ public class Main {
 		readLogs();
 		int choice;
 		do {
+			System.out.println();
 			System.out.println("Log in as:-");
 			System.out.println("1. Admin");
 			System.out.println("2. Customer");
@@ -85,6 +86,7 @@ public class Main {
 	private static void customerMode() {
 		int choice;
 		do {
+			System.out.println();
 			System.out.println("1. Booking");
 			System.out.println("2. Cancelling");
 			System.out.println("3. Re-schedule/edit details");
@@ -142,6 +144,7 @@ public class Main {
 		}
 		int choice;
 		do {
+			System.out.println();
 			System.out.println("1. Booking");
 			System.out.println("2. Cancelling");
 			System.out.println("3. Re-schedule/edit details");
@@ -253,6 +256,8 @@ public class Main {
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
+		System.out.println("Password changed!");
+		System.out.println();
 	}
 
 	private static String getPassword() {

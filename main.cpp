@@ -646,7 +646,7 @@ private:
             cout << "Enter fare: ";
             int fare;
             cin >> fare;
-            cin >> ws;
+            cin.ignore();
             trips.push_back(Trip(getTierBus(i), startDay, startTime, endDay, endTime, fare));
             cout << "Trip added!" << endl;
             cout << endl;
@@ -725,7 +725,7 @@ public:
             cout << "Are you sure, You want to cancel the trip? Press Y or N: ";
             char choice;
             cin >> choice;
-            cin >> ws;
+            cin.ignore();
             if (choice == 'Y')
             {
                 Ticket ticket = mapTicket.at(ticketNumber);
@@ -757,7 +757,7 @@ public:
             cout << "Are you sure, You want to re-schedule the trip? Press Y or N: ";
             char choice;
             cin >> choice;
-            cin >> ws;
+            cin.ignore();
             if (choice == 'Y')
             {
                 Ticket ticket = mapTicket.at(ticketNumber);
@@ -979,7 +979,7 @@ void defaultPassword()
     file.close();
 }
 
-static void changePassword()
+void changePassword()
 {
     ofstream file;
     file.open("password.dat", ios::trunc);

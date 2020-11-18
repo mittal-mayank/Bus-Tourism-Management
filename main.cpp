@@ -540,6 +540,11 @@ public:
     {
         bus->clearBus();
     }
+
+    void remove()
+    {
+        delete bus;
+    }
 };
 
 class Ticket
@@ -935,6 +940,18 @@ public:
         Trip trip = trips.at(tier - 1);
         trip.editTrip();
         cout << endl;
+    }
+
+    ~Log()
+    {
+        for (auto &pair : mapTrips)
+        {
+            vector<Trip> trips = pair.second;
+            for (Trip trip : trips)
+            {
+                trip.remove();
+            }
+        }
     }
 };
 

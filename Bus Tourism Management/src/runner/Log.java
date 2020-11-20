@@ -167,9 +167,21 @@ public class Log implements java.io.Serializable {
 
 	void addDestination() {
 		System.out.print("Enter destination: ");
-		String destination = Main.scan.next();
-		mapTrips.put(destination, destinationList());
+		String location = Main.scan.next();
+		mapTrips.put(location, destinationList());
 		System.out.println("Destination added!");
+		System.out.println();
+	}
+	
+	void removeDestination() {
+		System.out.print("Enter destination: ");
+		String loaction = Main.scan.next();
+		if(mapTrips.containsKey(loaction)) {
+			mapTrips.remove(loaction);
+			System.out.println("Destination removed!");
+		}else {
+			System.out.println("Destination not present!");
+		}
 		System.out.println();
 	}
 

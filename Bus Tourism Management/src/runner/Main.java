@@ -157,9 +157,10 @@ public class Main {
 			System.out.println("10. Edit bus information");
 			System.out.println("11. Reset bus/trip");
 			System.out.println("12. Add new destination");
-			System.out.println("13. Reset logs");
-			System.out.println("14. Edit trip");
-			System.out.println("15. Log out");
+			System.out.println("13. Remove destination");
+			System.out.println("14. Reset logs");
+			System.out.println("15. Edit trip");
+			System.out.println("16. Log out");
 			System.out.print("Enter your choice: ");
 			choice = scan.nextInt();
 			System.out.println();
@@ -201,19 +202,22 @@ public class Main {
 				log.addDestination();
 				break;
 			case 13:
-				log = new Log();
+				log.removeDestination();
 				break;
 			case 14:
-				log.editTrip();
+				log = new Log();
 				break;
 			case 15:
+				log.editTrip();
+				break;
+			case 16:
 				System.out.println("Logged out");
 				break;
 			default:
 				System.out.println("Choice doesn't match options, try again");
 				break;
 			}
-		} while (choice != 15);
+		} while (choice != 16);
 	}
 
 	private static void deafaultPassword() {

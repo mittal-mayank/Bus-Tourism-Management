@@ -77,6 +77,7 @@ public:
         passenger.displayPassenger();
         cout << "Row: " << row << ", Column: " << column << endl;
     }
+
     bool operator==(const Seat &s) const
     {
         return this->count == s.count;
@@ -957,30 +958,6 @@ public:
 
 Log storage;
 
-static void readLogs()
-{
-    ifstream file;
-    file.open("logs.dat");
-    if (!file.is_open())
-    {
-        return;
-    }
-    file.seekg(ios::end);
-    long size = file.tellg();
-    file.seekg(ios::beg);
-    file.read((char *)&storage, size);
-    file.close();
-}
-
-void writeLogs()
-{
-    ofstream file;
-    file.open("logs.dat", ios::trunc);
-    file.write((char *)&storage, sizeof(storage));
-    cout << sizeof(storage);
-    file.close();
-}
-
 void defaultPassword()
 {
     fstream file;
@@ -1169,7 +1146,6 @@ void adminMode()
 
 int main()
 {
-    readLogs();
     int choice;
     do
     {
@@ -1191,7 +1167,6 @@ int main()
             customerMode();
             break;
         case 3:
-            writeLogs();
             cout << "Exited" << endl;
             break;
         default:

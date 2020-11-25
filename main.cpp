@@ -834,7 +834,7 @@ public:
 
     void printLogs()
     {
-        for (auto &pair : mapTrips)
+        for (auto pair : mapTrips)
         {
             string location = pair.first;
             cout << "Destination: " << location << endl;
@@ -945,9 +945,9 @@ public:
 
     ~Log()
     {
-        for (auto &pair : mapTrips)
+        for (auto elem : mapTrips)
         {
-            vector<Trip> trips = pair.second;
+            vector<Trip> trips = elem.second;
             for (Trip trip : trips)
             {
                 trip.remove();
